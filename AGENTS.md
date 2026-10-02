@@ -21,7 +21,7 @@ sudo cp central_server/systemd/workflow-server.service /etc/systemd/system/ && s
 
 # MCP server + tests (macOS 12+, Python >=3.9)
 pip install -e .                          # optional FastMCP: pip install -e ".[fastmcp]"
-python3 -m macos_workflow_mcp server      # stdio server; also: daemon | focus | summary | tasks
+python3 -m macos_workflow_mcp              # stdio server (bare run; `server` subcommand is broken — cmd_server passes kwargs run_server() doesn't accept); also: daemon | focus | summary | tasks
 python3 -m unittest discover -s macos_workflow_mcp -p "test_*.py"
 
 # mac_client (needs SERVER_URL pointing at hub)

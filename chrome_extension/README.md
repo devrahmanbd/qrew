@@ -8,7 +8,7 @@ Real-time task synchronization, AI focus rezoning, and browser context tracking 
 
 1. **Active Tab Focus Reporting:**
    * Automatically streams current active browser tab (`title` and `url`) to the local macOS workflow agent (`ws://localhost:8765/ws`).
-   * Feeds your browser context into the Nemotron-3 thinking model for instant **work rezoning** recommendations.
+   * Feeds your browser context into the hub's reasoning agent for **focus rezoning** recommendations (`focus_rezoning` → `immediate_focus` + `rezoning_nudge`).
 
 2. **Live Task Badge:**
    * Dynamic extension icon badge displaying the count of open tasks (e.g. `5`).
@@ -37,12 +37,18 @@ Real-time task synchronization, AI focus rezoning, and browser context tracking 
 
 The extension communicates with your local workflow daemon running on macOS:
 
-* **WebSocket Endpoint:** `ws://localhost:8765/ws`
-  * Client sends: `{"type": "browser_focus", "title": "GitHub PR", "url": "https://..."}`
-  * Client sends: `{"type": "toggle_task", "task_identifier": "Framique", "completed": true}`
-  * Client sends: `{"type": "add_task", "task_text": "New task", "file_path": "17-Sep"}`
-  * Server sends: `{"type": "tasks_state", "tasks": [...], "immediate_focus": "..."}`
-* **REST Fallback:** `http://localhost:8765/api/focus/browser_tab` and `http://localhost:8765/api/tasks`
+* **WebSocket (primary):** `ws://localhost:8765/ws` (matches `WS_URL` in `background.js`)
+  * Sends: `browser_focus` (`title`, `url`, `timestamp`), `get_tasks`, `toggle_task` (`task_identifier`, `completed`, `file_path`), `add_task` (`task_text`, `file_path`, `section`)
+  * Receives: `tasks_state` / `task_update` (`tasks`, `immediate_focus`, ...), `badge_update` (`count`), `focus_rezoning` (`immediate_focus`, `rezoning_nudge`)
+  * Tab guard: skips `chrome://` and `chrome-extension://` URLs; an identical title+URL is not resent.
+* **REST fallback (WebSocket offline only):** `POST http://localhost:8765/api/message` with the same payload (`sendSocketMessage` in `background.js`).
+
+---
+
+## Permissions scope (from `manifest.json`)
+
+* Extension APIs: `tabs` (read active tab title/URL), `storage` (local task cache), `alarms` (1-minute keepalive), `notifications` (declared).
+* Host access is local-hub only: `http://localhost:8765/*`, `ws://localhost:8765/*`, `http://127.0.0.1:8765/*`. No remote hosts.
 
 ---
 
@@ -59,5 +65,6 @@ chrome_extension/
 │   ├── icon16.png
 │   ├── icon48.png
 │   └── icon128.png
-└── README.md           # Documentation & usage guide
+├── README.md           # Documentation & usage guide
+└── AGENTS.md           # Folder-scoped agent notes
 ```

@@ -28,3 +28,6 @@ local.properties
 # Logs
 *.log
 /tmp/
+
+# OpenCode loop session state (runtime noise, not docs)
+.opencode/opencode-loop/

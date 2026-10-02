@@ -40,7 +40,7 @@ Designed for AI clients such as **Claude Desktop**, **Cursor**, **Zed**, and cus
 ### Key Components
 
 1. **Activity Tracker (`macos_workflow_mcp.activity_tracker`)**:
-   - Queries macOS frontmost application, active window title, and bundle identifier via native AppleScript and JavaScript for Automation (JXA).
+   - Queries macOS frontmost application, active window title, and bundle identifier via native AppleScript (`osascript`, `System Events`).
    - Graceful fallback and mock support for non-Darwin environments.
    - Includes `ActivityMonitorDaemon` for background polling (default every 3 seconds) and automatic session flushing.
 2. **Activity Database (`macos_workflow_mcp.db`)**:
@@ -60,7 +60,7 @@ Designed for AI clients such as **Claude Desktop**, **Cursor**, **Zed**, and cus
 
 ## Exposed MCP Tools
 
-The server registers 9 tools conforming to the MCP tool specification:
+The server registers 10 tools conforming to the MCP tool specification:
 
 | Tool | Parameters | Description |
 |---|---|---|
@@ -68,8 +68,9 @@ The server registers 9 tools conforming to the MCP tool specification:
 | `get_running_apps` | None | Returns list of names of all visible running GUI applications. |
 | `get_activity_summary` | `since_minutes` (int, default 60), `limit` (int, default 15) | Returns time spent per application, time percentage share, and sample window titles. |
 | `get_recent_activity` | `limit` (int, default 30) | Chronological log of recent focus changes (most recent first). |
+| `list_task_files` | None | Lists markdown filenames in the configured task directory (empty list when no `DEFAULT_TASK_DIR`). |
 | `list_tasks` | `file_path` (str, optional), `status` ('all'/'open'/'completed'), `section` (str, optional), `tag` (str, optional) | Lists parsed markdown tasks matching criteria. |
-| `add_task` | `task_text` (str, required), `file_path` (str, optional), `section` (str, default 'Inbox') | Appends task under specified section or end of file. |
+| `add_task` | `task_text` (str, required), `file_path` (str, optional), `section` (str, default '') | Appends task under specified section or end of file. |
 | `update_task_status` | `task_identifier` (str, line number or substring, required), `completed` (bool, default True), `file_path` (str, optional) | Toggles completion checkbox (`- [x]` or `- [ ]`). |
 | `delete_task` | `task_identifier` (str, required), `file_path` (str, optional) | Deletes matching task line. |
 | `get_task_summary` | `file_path` (str, optional) | Returns task statistics, section breakdown, and top open tasks. |
