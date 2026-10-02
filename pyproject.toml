@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "macos-workflow-mcp"
+version = "0.1.0"
+description = "macOS Workflow & Task Monitoring MCP Server"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: MacOS",
+    "Topic :: Utilities",
+]
+dependencies = []
+
+[project.optional-dependencies]
+fastmcp = [
+    "mcp>=1.0.0",
+]
+test = [
+    "pytest>=7.0.0",
+]
+
+[project.scripts]
+macos-workflow-mcp = "macos_workflow_mcp.__main__:main"
+macos-workflow-daemon = "macos_workflow_mcp.daemon_runner:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["macos_workflow_mcp*"]

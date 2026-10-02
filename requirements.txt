@@ -1,0 +1,4 @@
+# macOS Workflow & Task Monitoring MCP Server
+# Standard library handles core operations (SQLite, osascript, stdio JSON-RPC 2.0).
+# Optional: FastMCP framework
+mcp>=1.0.0; python_version>='3.10'

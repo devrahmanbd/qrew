@@ -1,0 +1,10 @@
+{
+  "id": "obsidian-mcp-workflow",
+  "name": "Autonomous Workflow & Intellect Sync",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Bi-directional integration with your autonomous intellect engine, focus monitoring, and task state machine.",
+  "author": "Rahman",
+  "authorUrl": "https://devrahman.com",
+  "isDesktopOnly": false
+}

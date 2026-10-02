@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# SQLite runtime databases
+*.db
+*.db-wal
+*.db-shm
+
+# Local data / secrets
+data/
+.env
+
+# Android / Gradle
+android_app/.gradle/
+android_app/app/build/
+android_app/build/
+local.properties
+
+# Logs
+*.log
+/tmp/

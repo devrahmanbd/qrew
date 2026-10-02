@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow Stream</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="logo-mark">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M2 8L6 12L14 4" stroke="#58a6ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="brand-title">Workflow</span>
+        <span id="date-badge" class="date-badge">17-Sep</span>
+      </div>
+      <div class="header-actions">
+        <div id="status-pill" class="status-pill status-offline" title="Connection to local macOS agent (ws://localhost:8765/ws)">
+          <span class="status-dot"></span>
+          <span id="status-text" class="status-text">Offline</span>
+        </div>
+        <button id="refresh-btn" class="icon-btn" title="Force sync">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M1.705 8.001a6.3 6.3 0 0 1 10.334-4.81l-1.464 1.464A4.2 4.2 0 1 0 12.2 8h2.1a6.3 6.3 0 1 1-12.595.001z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Top Focus AI Card -->
+    <section id="focus-section" class="focus-section">
+      <div class="focus-card">
+        <div class="focus-meta">
+          <div class="focus-tag">
+            <span class="sparkle">✦</span>
+            <span>TOP FOCUS</span>
+          </div>
+          <span id="focus-score-badge" class="score-badge">P0 • Rank 1</span>
+        </div>
+        <div class="focus-content">
+          <div class="focus-title" id="focus-task-title">Account Recovery of Flynn, Shaheen(first)</div>
+          <div class="focus-reason" id="focus-task-reason">Explicit prerequisite '(first)' • Resolves account dependency</div>
+        </div>
+        <div class="focus-actions">
+          <button id="focus-complete-btn" class="btn-primary-sm">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor" style="margin-right: 4px;">
+              <path d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"/>
+            </svg>
+            Complete Now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter Pills -->
+    <nav class="filter-bar">
+      <div class="pill-group">
+        <button class="pill active" data-filter="all">
+          All <span id="count-all" class="pill-count">0</span>
+        </button>
+        <button class="pill" data-filter="open">
+          Open <span id="count-open" class="pill-count">0</span>
+        </button>
+        <button class="pill" data-filter="completed">
+          Done <span id="count-completed" class="pill-count">0</span>
+        </button>
+      </div>
+      <div id="section-indicator" class="section-indicator">## Daily Note</div>
+    </nav>
+
+    <!-- Task List -->
+    <main class="task-container">
+      <ul id="task-list" class="task-list">
+        <!-- Rendered dynamically -->
+      </ul>
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#484f58" stroke-width="1.5">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <p>All tasks completed for today</p>
+      </div>
+    </main>
+
+    <!-- Quick Add Footer -->
+    <footer class="app-footer">
+      <form id="quick-add-form" class="quick-add-form">
+        <div class="input-wrapper">
+          <span class="plus-icon">+</span>
+          <input
+            type="text"
+            id="task-input"
+            class="task-input"
+            placeholder="Add task to today's note (Enter)..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button type="submit" class="submit-btn" title="Add Task (Enter)">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"/>
+          </svg>
+        </button>
+      </form>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
